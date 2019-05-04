@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.jca.data.dto.Product;
 import com.jca.data.entity.mongo.ProductEntity;
 import com.jca.data.service.ProductService;
 
@@ -29,12 +30,13 @@ public class ProductController {
 	}
 	
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<ProductEntity> create(@RequestBody ProductEntity product){
-		String productId = service.create(product);
-		ProductEntity created = service.getById(productId);
+	public ResponseEntity<ProductEntity> create(@RequestBody Product product){
+		service.create(product);
+		
+		/*ProductEntity created = service.getById(productId);
 		URI location  = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(created.getId()).toUri();
-		return ResponseEntity.created(location).body(created);
+				.buildAndExpand(created.getId()).toUri();*/
+		return ResponseEntity.ok().build();
 	}
 
 }
